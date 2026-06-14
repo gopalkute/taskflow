@@ -1,6 +1,6 @@
-# TaskFlow — MERN Task Management Application
+# ✅ TaskFlow — MERN Task Management Application
 
-A complete, production-ready task management web application built with the MERN stack. Features JWT authentication, full CRUD operations, search, filtering, pagination, dark/light mode, and a modern responsive UI.
+A complete, production-ready **task management web application** built with the MERN Stack. Features JWT authentication, full CRUD operations, real-time search, filtering, pagination, dark/light mode, Swagger API docs, and Jest test coverage.
 
 ---
 
@@ -13,25 +13,33 @@ A complete, production-ready task management web application built with the MERN
 | 🔄 Status Toggle | Mark tasks as completed or pending |
 | 🔍 Search | Real-time debounced search |
 | 🎛️ Filter | Filter by status and priority |
-| 📄 Pagination | Paginated task list |
-| 👤 Profile | View and update profile |
-| 🌙 Dark Mode | Full light/dark theme |
+| 📄 Pagination | Paginated task list with limit control |
+| 👤 Profile | View and update user profile |
+| 🌙 Dark Mode | Full light/dark theme, persists in localStorage |
 | 📱 Responsive | Mobile, tablet, desktop optimized |
-| 📊 Dashboard | Stats: total, completed, pending, rate |
-| 📚 Swagger Docs | Auto-generated API documentation |
-| 🧪 Tests | Jest + Supertest API tests |
+| 📊 Dashboard | Stats — total, completed, pending, completion rate |
+| 📚 Swagger Docs | Auto-generated interactive API documentation |
+| 🧪 Tests | Jest + Supertest — auth and task API coverage |
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Frontend:** React 18, React Router v6, Axios, Tailwind CSS, Context API, React Hot Toast, Vite
+**Frontend:**
 
-**Backend:** Node.js, Express.js, Mongoose, JWT, bcryptjs, express-validator, Helmet, Morgan
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-v6-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-1.6-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
-**Database:** MongoDB
+**Backend:**
 
-**Testing:** Jest, Supertest
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-4.18-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-Supertest-C21325?style=for-the-badge&logo=jest&logoColor=white)
 
 ---
 
@@ -39,62 +47,66 @@ A complete, production-ready task management web application built with the MERN
 
 ```
 taskflow/
-├── package.json              ← Root scripts (run both servers)
+│
+├── package.json                    ← Root scripts (run both servers)
+│
 ├── server/
 │   ├── config/
-│   │   ├── db.js             ← MongoDB connection
-│   │   └── swagger.js        ← Swagger/OpenAPI config
+│   │   ├── db.js                   ← MongoDB connection
+│   │   └── swagger.js              ← Swagger/OpenAPI config
 │   ├── controllers/
-│   │   ├── authController.js
-│   │   └── taskController.js
+│   │   ├── authController.js       ← Register, login, profile logic
+│   │   └── taskController.js       ← Task CRUD, stats, toggle logic
 │   ├── middleware/
-│   │   ├── auth.js           ← JWT protect middleware
-│   │   ├── errorHandler.js
-│   │   └── validate.js
+│   │   ├── auth.js                 ← JWT protect middleware
+│   │   ├── errorHandler.js         ← Global error handler
+│   │   └── validate.js             ← express-validator runner
 │   ├── models/
-│   │   ├── User.js
-│   │   └── Task.js
+│   │   ├── User.js                 ← name, email, password (hashed)
+│   │   └── Task.js                 ← title, status, priority, dueDate, userId
 │   ├── routes/
-│   │   ├── auth.routes.js
-│   │   └── task.routes.js
+│   │   ├── auth.routes.js          ← /api/auth/*
+│   │   └── task.routes.js          ← /api/tasks/*
 │   ├── tests/
-│   │   ├── auth.test.js
-│   │   └── task.test.js
+│   │   ├── auth.test.js            ← Register, login, profile tests
+│   │   └── task.test.js            ← CRUD, toggle, search, stats tests
 │   ├── utils/
-│   │   └── jwt.js
+│   │   └── jwt.js                  ← Sign and verify token helpers
 │   ├── validators/
-│   │   ├── authValidators.js
-│   │   └── taskValidators.js
-│   ├── app.js
-│   ├── server.js
+│   │   ├── authValidators.js       ← Register and login rules
+│   │   └── taskValidators.js       ← Task create and update rules
+│   ├── app.js                      ← Express app setup, middleware, routes
+│   ├── server.js                   ← Entry point — starts server
 │   ├── .env
+│   ├── .env.example
 │   └── package.json
+│
 └── client/
     ├── src/
     │   ├── components/
-    │   │   ├── auth/           ← ProtectedRoute
-    │   │   ├── common/         ← Spinner, Modal, EmptyState, Pagination, Skeleton
-    │   │   ├── layout/         ← Navbar, Sidebar, Layout
-    │   │   └── tasks/          ← TaskCard, TaskModal, StatsCards
+    │   │   ├── auth/               ← ProtectedRoute
+    │   │   ├── common/             ← Spinner, Modal, EmptyState, Pagination, Skeleton
+    │   │   ├── layout/             ← Navbar, Sidebar, Layout wrapper
+    │   │   └── tasks/              ← TaskCard, TaskModal, StatsCards
     │   ├── context/
-    │   │   ├── AuthContext.jsx
-    │   │   └── ThemeContext.jsx
+    │   │   ├── AuthContext.jsx     ← User auth state, JWT storage
+    │   │   └── ThemeContext.jsx    ← Dark/light mode toggle + localStorage
     │   ├── hooks/
-    │   │   ├── useTasks.js
-    │   │   └── useDebounce.js
+    │   │   ├── useTasks.js         ← Task fetching, filtering, pagination logic
+    │   │   └── useDebounce.js      ← Debounce hook for search input
     │   ├── pages/
     │   │   ├── Login.jsx
     │   │   ├── Register.jsx
-    │   │   ├── Dashboard.jsx
-    │   │   ├── Tasks.jsx
-    │   │   ├── TaskDetail.jsx
-    │   │   ├── Profile.jsx
+    │   │   ├── Dashboard.jsx       ← Stats overview
+    │   │   ├── Tasks.jsx           ← Main task list with search + filter
+    │   │   ├── TaskDetail.jsx      ← Single task view
+    │   │   ├── Profile.jsx         ← View and update user profile
     │   │   └── NotFound.jsx
     │   ├── services/
-    │   │   ├── api.js
-    │   │   └── taskService.js
+    │   │   ├── api.js              ← Axios instance with JWT interceptor
+    │   │   └── taskService.js      ← Task API calls
     │   ├── utils/
-    │   │   └── helpers.js
+    │   │   └── helpers.js          ← Date formatting, priority colors etc.
     │   ├── App.jsx
     │   ├── main.jsx
     │   └── index.css
@@ -118,31 +130,34 @@ taskflow/
 ### Step 1 — Clone / Extract
 
 ```bash
-# If downloaded as zip, extract it, then:
+git clone https://github.com/gopalkute02/taskflow.git
 cd taskflow
 ```
 
+---
+
 ### Step 2 — Configure Environment
 
-```bash
-# Server environment
-cp server/.env.example server/.env
-```
+**Backend** — create `server/.env`:
 
-Edit `server/.env`:
 ```env
 PORT=5000
 NODE_ENV=development
-MONGO_URI=mongodb://127.0.0.1:27017/taskflow   # or your Atlas URI
+MONGO_URI=mongodb://127.0.0.1:27017/taskflow
 JWT_SECRET=change_this_to_a_long_random_string
 JWT_EXPIRE=7d
 CLIENT_URL=http://localhost:5173
 ```
 
-Edit `client/.env`:
+**Frontend** — create `client/.env`:
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
+
+> ⚠️ Change `JWT_SECRET` to a long random string before deploying.
+
+---
 
 ### Step 3 — Install Dependencies
 
@@ -154,6 +169,8 @@ npm install
 npm run install:all
 ```
 
+---
+
 ### Step 4 — Run the Application
 
 ```bash
@@ -162,9 +179,9 @@ npm run dev
 ```
 
 This runs:
-- **Backend** → http://localhost:5000
-- **Frontend** → http://localhost:5173
-- **API Docs** → http://localhost:5000/api/docs
+- **Backend** → `http://localhost:5000`
+- **Frontend** → `http://localhost:5173`
+- **API Docs** → `http://localhost:5000/api/docs`
 
 ---
 
@@ -173,25 +190,25 @@ This runs:
 ### Auth Endpoints
 
 | Method | Endpoint | Access | Description |
-|---|---|---|---|
-| POST | `/api/auth/register` | Public | Register new user |
-| POST | `/api/auth/login` | Public | Login, get JWT |
-| GET | `/api/auth/profile` | Private 🔒 | Get current user |
-| PUT | `/api/auth/profile` | Private 🔒 | Update name |
+|--------|----------|--------|-------------|
+| `POST` | `/api/auth/register` | Public | Register new user |
+| `POST` | `/api/auth/login` | Public | Login — returns JWT |
+| `GET` | `/api/auth/profile` | Private 🔒 | Get current user |
+| `PUT` | `/api/auth/profile` | Private 🔒 | Update name |
 
 ### Task Endpoints
 
 | Method | Endpoint | Access | Description |
-|---|---|---|---|
-| GET | `/api/tasks` | Private 🔒 | List tasks (search, filter, paginate) |
-| GET | `/api/tasks/stats` | Private 🔒 | Dashboard statistics |
-| GET | `/api/tasks/:id` | Private 🔒 | Get single task |
-| POST | `/api/tasks` | Private 🔒 | Create task |
-| PUT | `/api/tasks/:id` | Private 🔒 | Update task |
-| DELETE | `/api/tasks/:id` | Private 🔒 | Delete task |
-| PATCH | `/api/tasks/:id/status` | Private 🔒 | Toggle status |
+|--------|----------|--------|-------------|
+| `GET` | `/api/tasks` | Private 🔒 | List tasks (search, filter, paginate) |
+| `GET` | `/api/tasks/stats` | Private 🔒 | Dashboard statistics |
+| `GET` | `/api/tasks/:id` | Private 🔒 | Get single task |
+| `POST` | `/api/tasks` | Private 🔒 | Create task |
+| `PUT` | `/api/tasks/:id` | Private 🔒 | Update task |
+| `DELETE` | `/api/tasks/:id` | Private 🔒 | Delete task |
+| `PATCH` | `/api/tasks/:id/status` | Private 🔒 | Toggle completed / pending |
 
-### Query Parameters for GET /api/tasks
+### Query Parameters — `GET /api/tasks`
 
 ```
 ?status=pending|completed
@@ -203,9 +220,9 @@ This runs:
 ?order=asc|desc
 ```
 
-### Authentication
+### Authentication Header
 
-All protected routes require the Authorization header:
+All private routes require:
 ```
 Authorization: Bearer <your_jwt_token>
 ```
@@ -215,27 +232,29 @@ Authorization: Bearer <your_jwt_token>
 ## 🗄️ Database Schema
 
 ### User Collection
+
 ```js
 {
-  name:      String,   // required, 2-50 chars
-  email:     String,   // required, unique, lowercase
-  password:  String,   // bcrypt hashed, select: false
-  createdAt: Date,     // auto
-  updatedAt: Date      // auto
+  name:      String,    // required, 2–50 chars
+  email:     String,    // required, unique, lowercase
+  password:  String,    // bcrypt hashed, select: false
+  createdAt: Date,      // auto
+  updatedAt: Date       // auto
 }
 ```
 
 ### Task Collection
+
 ```js
 {
-  title:       String,             // required, 2-100 chars
-  description: String,             // optional, max 500 chars
-  status:      "pending"|"completed",  // default: "pending"
-  priority:    "low"|"medium"|"high",  // default: "medium"
-  dueDate:     Date,               // optional
-  userId:      ObjectId,           // ref: User, required
-  createdAt:   Date,               // auto
-  updatedAt:   Date                // auto
+  title:       String,                      // required, 2–100 chars
+  description: String,                      // optional, max 500 chars
+  status:      "pending" | "completed",     // default: "pending"
+  priority:    "low" | "medium" | "high",   // default: "medium"
+  dueDate:     Date,                        // optional
+  userId:      ObjectId,                    // ref: User, required
+  createdAt:   Date,                        // auto
+  updatedAt:   Date                         // auto
 }
 ```
 
@@ -246,82 +265,102 @@ Authorization: Bearer <your_jwt_token>
 Make sure MongoDB is running, then:
 
 ```bash
-# Run all API tests
+# Run all tests from root
 npm run test
 
-# Or from server directory
+# Or run from server directory
 cd server && npm test
 ```
 
-Tests cover:
-- ✅ User registration (success, duplicate, invalid)
-- ✅ User login (success, wrong password, not found)
-- ✅ Profile retrieval (auth, no token, invalid token)
-- ✅ Task CRUD (create, read, update, delete)
-- ✅ Status toggle
-- ✅ Search and filter
-- ✅ Dashboard stats
+### Test Coverage
+
+- ✅ User registration — success, duplicate email, invalid input
+- ✅ User login — success, wrong password, user not found
+- ✅ Profile retrieval — authenticated, no token, invalid token
+- ✅ Task CRUD — create, read, update, delete
+- ✅ Status toggle — pending ↔ completed
+- ✅ Search and filter — keyword, status, priority
+- ✅ Dashboard stats — totals and completion rate
 
 ---
 
 ## 📚 Swagger API Documentation
 
-After starting the server, visit:
+After starting the server, open:
+
 ```
 http://localhost:5000/api/docs
 ```
 
-The Swagger UI provides interactive documentation for all endpoints. Click **Authorize** and enter your JWT token to test protected routes.
+The Swagger UI provides interactive documentation for all endpoints. Click **Authorize**, enter your JWT token to test all protected routes directly in the browser.
 
 ---
 
-## 🌙 Dark Mode
+## 🖼️ Screenshots
 
-Click the moon/sun icon in the navbar to toggle. The preference is saved to localStorage and persists across sessions.
+> Screenshots will be added after deployment.
+
+| Dashboard — Stats | Tasks — List View |
+|---|---|
+| *(coming soon)* | *(coming soon)* |
+
+| Task — Detail Modal | Profile Page |
+|---|---|
+| *(coming soon)* | *(coming soon)* |
 
 ---
 
-## 🚢 Deployment Guide
+## 🌐 Live Demo
 
-### Backend (Render / Railway)
+> 🔗 **[Live Demo](#)** — *(add your deployed URL here)*
 
-1. Create a new **Web Service**
-2. Set the root directory to `server/`
-3. Build command: `npm install`
-4. Start command: `node server.js`
-5. Add environment variables from `server/.env`
-6. Set `NODE_ENV=production`
+---
 
-### Frontend (Vercel / Netlify)
+## 🚢 Deployment
 
-1. Set root directory to `client/`
-2. Build command: `npm run build`
-3. Output directory: `dist`
-4. Add env: `VITE_API_URL=https://your-backend-url.com/api`
+### Backend — Render / Railway
 
-### Database (MongoDB Atlas)
+1. Push `server/` to a GitHub repository
+2. Create a new **Web Service** on [Render](https://render.com)
+3. Set root directory to `server/`
+4. Build command: `npm install`
+5. Start command: `node server.js`
+6. Add all environment variables from `server/.env`
+7. Set `NODE_ENV=production`
+
+### Frontend — Vercel / Netlify
+
+1. Push `client/` to a GitHub repository
+2. Import project on [Vercel](https://vercel.com)
+3. Set root directory to `client/`
+4. Build command: `npm run build`
+5. Output directory: `dist`
+6. Add environment variable: `VITE_API_URL=https://your-backend-url.com/api`
+
+### Database — MongoDB Atlas
 
 1. Create a free cluster at [mongodb.com/atlas](https://www.mongodb.com/atlas)
-2. Whitelist your server IP (or 0.0.0.0/0 for development)
-3. Copy the connection string to `MONGO_URI`
+2. Whitelist your server IP (or `0.0.0.0/0` for development)
+3. Copy the connection string into `MONGO_URI`
 
 ---
 
 ## 🔒 Security Features
 
-- **Helmet** — sets secure HTTP headers
-- **CORS** — restricted to frontend origin
+- **Helmet** — sets secure HTTP headers on every response
+- **CORS** — restricted to frontend origin via `CLIENT_URL`
 - **Rate Limiting** — 100 requests per 15 minutes per IP
 - **JWT** — stateless authentication, 7-day expiry
 - **bcrypt** — 12-round password hashing
 - **express-validator** — input validation on all endpoints
-- **Password hidden** — `select: false` in User schema
+- **Password hidden** — `select: false` in User schema, never returned in responses
 
 ---
 
-## 👨‍💻 Environment Variables Reference
+## 📝 Environment Variables Reference
 
 ### server/.env
+
 ```env
 PORT=5000
 NODE_ENV=development
@@ -332,13 +371,25 @@ CLIENT_URL=http://localhost:5173
 ```
 
 ### client/.env
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
 ---
 
-## 📝 License
+## 👨‍💻 Author
+
+**Gopal Kute**
+Final Year B.Tech Computer Engineering · MERN Stack Developer
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-gopalkute-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gopalkute)
+[![GitHub](https://img.shields.io/badge/GitHub-gopalkute-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gopalkute)
+[![LeetCode](https://img.shields.io/badge/LeetCode-gopalkute-FFA116?style=for-the-badge&logo=leetcode&logoColor=black)](https://leetcode.com/gopalkute)
+
+---
+
+## 📄 License
 
 MIT — free to use for personal and commercial projects.
 
