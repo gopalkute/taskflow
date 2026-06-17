@@ -298,21 +298,19 @@ The Swagger UI provides interactive documentation for all endpoints. Click **Aut
 
 ## 🖼️ Screenshots
 
-> Screenshots will be added after deployment.
-
 | Dashboard — Stats | Tasks — List View |
 |---|---|
-| *(coming soon)* | *(coming soon)* |
+| ![dashboard home page](images/home-page.png) | ![tasks listing page](images/task-listing-page.png) |
 
 | Task — Detail Modal | Profile Page |
 |---|---|
-| *(coming soon)* | *(coming soon)* |
+| ![task detail model page](images/detail-model-page.png) | ![profile page](images/profile-page.png) |
 
 ---
 
 ## 🌐 Live Demo
 
-> 🔗 **[Live Demo](#)** — *(add your deployed URL here)*
+> 🔗 **[CLICK ME - Live taskflow](https://taskflow-gopalkute.vercel.app)**
 
 ---
 
